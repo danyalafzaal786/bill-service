@@ -136,3 +136,20 @@ mvn sonar:sonar \
 ```
 currency.exchange.api.key=your-api-key
 ```
+
+---
+
+## 🧠 Assumptions and Future Improvements
+This section outlines some design decisions and areas that can be extended in future iterations:
+### ✅ Exception Handling
+The current implementation handles basic request flow. Advanced and centralized exception handling (e.g., using @ControllerAdvice or ErrorResponse models) can be added to gracefully manage invalid inputs and system errors.
+### ✅ API Documentation
+The project can be extended to integrate OpenAPI/Swagger using Springdoc OpenAPI for auto-generated and interactive API documentation.
+### ✅ Input Validation
+Additional validation annotations (e.g., @NotNull, @Min, @Valid) can be added to DTOs to enforce data integrity.
+### ✅ Role-based Authorization
+The current basic authentication can be enhanced with role-based access controls for securing different API operations.
+### ✅ Persistent Storage
+Currently, the application operates entirely in-memory. A future extension could involve storing user and transaction data in a database (e.g., PostgreSQL, MySQL).
+### ✅ Environment-Specific Config
+External configuration (e.g., exchange API keys) can be managed using Spring Profiles or a configuration server for production-readiness.
