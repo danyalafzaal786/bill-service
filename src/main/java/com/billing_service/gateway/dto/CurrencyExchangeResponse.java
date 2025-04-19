@@ -1,4 +1,4 @@
-package com.billing_service.client.dto;
+package com.billing_service.gateway.dto;
 
 import java.math.BigDecimal;
 

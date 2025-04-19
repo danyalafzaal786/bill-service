@@ -1,6 +1,6 @@
 package com.billing_service.service;
 
-import com.billing_service.client.CurrencyExchangeClient;
+import com.billing_service.gateway.CurrencyExchangeGateway;
 import com.billing_service.dto.CalculateRequest;
 import com.billing_service.dto.CalculateResponse;
 import com.billing_service.dto.Item;
@@ -11,18 +11,18 @@ import java.math.BigDecimal;
 @Service
 public class BillService {
     private final DiscountService discountService;
-    private final CurrencyExchangeClient currencyExchangeClient;
+    private final CurrencyExchangeGateway currencyExchangeGateway;
 
-    public BillService(DiscountService discountService, CurrencyExchangeClient currencyExchangeClient) {
+    public BillService(DiscountService discountService, CurrencyExchangeGateway currencyExchangeGateway) {
         this.discountService = discountService;
-        this.currencyExchangeClient = currencyExchangeClient;
+        this.currencyExchangeGateway = currencyExchangeGateway;
     }
 
     public CalculateResponse calculateNetPayableAmount(CalculateRequest request) {
         BigDecimal totalBill = request.getItems().stream()
                 .map(Item::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
         BigDecimal totalDiscount = discountService.calculateDiscount(request);
-        BigDecimal rate = currencyExchangeClient.getExchangeRate(request.getOriginalCurrency(),
+        BigDecimal rate = currencyExchangeGateway.getExchangeRate(request.getOriginalCurrency(),
                 request.getTargetCurrency());
 
         return CalculateResponse.from(
